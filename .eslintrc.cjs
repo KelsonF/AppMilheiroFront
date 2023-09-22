@@ -14,5 +14,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'printWidth': 80,
+    'endOfLine': 'auto',
+    'singleQuote': true,
   },
 }

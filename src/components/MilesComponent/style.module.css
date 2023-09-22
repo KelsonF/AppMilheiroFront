@@ -1,0 +1,18 @@
+.wrapper {
+   display: flex;
+   justify-content: center ;
+   gap: 20px;
+}
+
+.button_wrapper {
+   display: flex;
+   gap: 5px;
+}
+
+.miles_screen {
+   border: 1px solid black;
+   width: 20%;
+   max-width: 80px;
+   border-radius: 8px;
+   text-align: center;
+}
