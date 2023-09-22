@@ -11,6 +11,7 @@ function App() {
   const [milesPrice, setMilesPrice] = useState(0);
   const [milesBonus, setMilesBonus] = useState(0);  
   const [milesDiscount, setMilesDiscount] = useState(0);
+  const [milesRealprice, setMilesRealprice] = useState(0);
 
 
   function increaseMilesQunatity() {
@@ -25,11 +26,9 @@ function App() {
     setMilesQuantity(milesQuantity - 10);
   }
 
-  let milesProps = {
-    milesPrice,
-    milesDiscount,
-    milesBonus,
-    milesQuantity,
+  function milesPriceHandleClick(){
+    let milesRealprice = MilesCalculator(milesPrice, milesDiscount, milesBonus, milesQuantity);
+    setMilesRealprice(milesRealprice)
   }
 
   return (
@@ -51,13 +50,10 @@ function App() {
         <div className='dicountLabel-holder'>
           <ValueInput label='Bonus' value={milesBonus}/>
         </div>
-        <div className='discountValuator-holder'>
-
-        </div>
         <div className='button-holder'>
           <Button
             text='Calcular'
-            onClickFunction={MilesCalculator(milesProps)}
+            onClickFunction={milesPriceHandleClick}
           />
         </div>
       </Body>
