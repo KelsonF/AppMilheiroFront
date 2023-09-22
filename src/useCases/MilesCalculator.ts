@@ -1,7 +1,7 @@
 interface MilesCalculatorProps {
-   milesValue: number
+   milesPrice: number
    discountValue: number
-   bonus: number
+   milesBonus: number
    quantity: number
 }
 function MilesCalculatorWithDiscount(milesQuantity: number, discountValue: number, milesValue: number){
@@ -12,14 +12,14 @@ function MilesCalculatorWithDiscount(milesQuantity: number, discountValue: numbe
    return milesQuantity / paydValue;
 }
 
-export function MilesCalculator({milesValue, discountValue, bonus, quantity}: MilesCalculatorProps){
+export function MilesCalculator({milesPrice, discountValue, milesBonus, quantity}: MilesCalculatorProps): number {
    let effectiveMilePrice: number = 0;
 
-   if (discountValue > 0 && bonus == 0) {
-      effectiveMilePrice = MilesCalculatorWithDiscount(quantity, discountValue, milesValue);
+   if (discountValue > 0 && milesBonus == 0) {
+      effectiveMilePrice = MilesCalculatorWithDiscount(quantity, discountValue, milesPrice);
    }
 
-   effectiveMilePrice = (quantity + (quantity * bonus/100) )/ milesValue 
+   effectiveMilePrice = (quantity + (quantity * milesBonus/100) )/ milesPrice;
 
    return effectiveMilePrice;
 }

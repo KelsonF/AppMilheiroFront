@@ -3,7 +3,7 @@ import "./style.css"
 
 interface ValueInputProps {
    label? : string  
-   value? : string
+   value? : number
    onChange? : (event: ChangeEvent<HTMLInputElement>)=>void
 }
 

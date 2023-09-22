@@ -1,7 +1,15 @@
 .button {
-   width: 50px;
+   width: 100%;
+   max-width: 300px;
    color: white;
    background-color: blueviolet;
    border: none;
    cursor: pointer;
+   padding: 10px;
+}
+
+.wrapper {
+   width: 100%;
+   display: flex;
+   justify-content: center ;
 }
