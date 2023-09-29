@@ -1,3 +1,4 @@
+import { RefObject } from "react"
 import { MilesButton } from "../MilesButton"
 import styles from './style.module.css'
 
@@ -5,6 +6,7 @@ interface MilesComponentProps {
    value: number
    increaseFunction?: () => void
    decreaseFunction?: () => void
+   ref?: RefObject<HTMLInputElement>
 }
 
 export function MilesComponent({ value, increaseFunction, decreaseFunction }: MilesComponentProps) {

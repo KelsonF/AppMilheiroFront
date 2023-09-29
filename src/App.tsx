@@ -1,34 +1,47 @@
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Body } from './components/Body';
 import { Button } from './components/Button';
 import { MilesComponent } from './components/MilesComponent';
 import { SearchBar } from './components/SearchBar';
 import { ValueInput } from './components/ValueInput';
-import { MilesCalculator } from './useCases/MilesCalculator';
+import { MilesCalculatorWithBonus } from './useCases/MilesCalculator';
 
 function App() {
-  const [milesQuantity, setMilesQuantity] = useState(0);
-  const [milesPrice, setMilesPrice] = useState(0);
-  const [milesBonus, setMilesBonus] = useState(0);  
-  const [milesDiscount, setMilesDiscount] = useState(0);
-  const [milesRealprice, setMilesRealprice] = useState(0);
+  const [milesQuantity, setMilesQuantity] = useState<number>(0);
+  const [milesPrice, setMilesPrice] = useState<number>(0);
+  const [milesBonus, setMilesBonus] = useState<number>(0);
+  const [milesRealprice, setMilesRealprice] = useState<number>(0);
 
+  const milesQuantityRef = useRef<HTMLInputElement>(null);
+  const milesPriceRef = useRef<HTMLInputElement>(null);
+  const milesBonusRef = useRef<HTMLInputElement>(null);
 
-  function increaseMilesQunatity() {
+  function increaseMilesQuantity() {
     setMilesQuantity(milesQuantity + 10);
   }
 
-  function decreaseMilesQunatity() {
-    if (milesQuantity < 0) {
-      return;
+  function decreaseMilesQuantity() {
+    if (milesQuantity >= 10) {
+      setMilesQuantity(milesQuantity - 10);
     }
-
-    setMilesQuantity(milesQuantity - 10);
   }
 
-  function milesPriceHandleClick(){
-    let milesRealprice = MilesCalculator(milesPrice, milesDiscount, milesBonus, milesQuantity);
-    setMilesRealprice(milesRealprice)
+  function milesPriceHandleClick() {
+
+    const quantity = parseFloat(milesQuantityRef.current?.value || '0');
+    const price = parseFloat(milesPriceRef.current?.value || '0');
+    const bonus = parseFloat(milesBonusRef.current?.value || '0');
+
+    if (!isNaN(quantity) && !isNaN(price) && !isNaN(bonus)) {
+
+      let milesPriceWithBonus = MilesCalculatorWithBonus(quantity, bonus, price);
+
+      setMilesQuantity(quantity);
+      setMilesBonus(bonus);
+      setMilesPrice(price);
+      setMilesRealprice(milesPriceWithBonus);
+    }
+
   }
 
   return (
@@ -40,15 +53,16 @@ function App() {
         <div className='milesBox-holder'>
           <MilesComponent
             value={milesQuantity}
-            increaseFunction={increaseMilesQunatity}
-            decreaseFunction={decreaseMilesQunatity}
+            increaseFunction={increaseMilesQuantity}
+            decreaseFunction={decreaseMilesQuantity}
+            ref={milesQuantityRef}
           />
         </div>
         <div className='priceLabel-holder'>
-          <ValueInput label='Preco milheiro' value={milesPrice} />
+          <ValueInput label='Preco milheiro' value={milesPrice} ref={milesPriceRef} />
         </div>
-        <div className='dicountLabel-holder'>
-          <ValueInput label='Bonus' value={milesBonus}/>
+        <div className='bonusLabel-holder'>
+          <ValueInput label='Bonus' value={milesBonus} ref={milesBonusRef} />
         </div>
         <div className='button-holder'>
           <Button

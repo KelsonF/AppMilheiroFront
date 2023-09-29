@@ -1,30 +1,22 @@
-function MilesCalculatorWithDiscount(
+export function MilesCalculatorWithBonus(
   milesQuantity: number,
-  discountValue: number,
+  milesBonus: number,
   milesValue: number
 ) {
-  let paydValue: number = 0;
+  let milesQuantityWithBonus: number = 0;
 
-  paydValue = (milesValue * discountValue) / 100;
+  milesQuantityWithBonus = milesQuantity + (milesQuantity * milesBonus/100);
 
-  return milesQuantity / paydValue;
+  return milesQuantityWithBonus/milesValue;
 }
 
-export function MilesCalculator(
+export function MilesCalculatorWithDiscount(
   milesPrice: number,
   discountValue: number,
   milesBonus: number,
   quantity: number
 ): number {
   let effectiveMilePrice: number = 0;
-
-  if (milesBonus > 0) {
-    effectiveMilePrice = MilesCalculatorWithDiscount(
-      quantity,
-      discountValue,
-      milesPrice
-    );
-  }
 
   effectiveMilePrice = (quantity + (quantity * milesBonus) / 100) / milesPrice;
 
